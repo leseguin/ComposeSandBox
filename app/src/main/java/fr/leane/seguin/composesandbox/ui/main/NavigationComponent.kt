@@ -18,14 +18,14 @@ fun NavigationComponent(
     NavHost(
         modifier = modifier,
         navController = navigation.navHostController,
-        startDestination = NavigationDirections.LIST_DIRECTION.name
+        startDestination = navigation.startScreen.name
     ) {
         composable(NavigationDirections.LIST_DIRECTION.name) {
             val items = (0..20).map { i -> SandBoxItem.createSandBoxItem("Header $i") }
             SimpleColumnScreen(items)
         }
 
-        composable(NavigationDirections.BUTTONS_DIRECTION.name) {
+        composable(NavigationDirections.CIRCULAR_BUTTON_DIRECTION.name) {
             ButtonsScreen()
         }
 

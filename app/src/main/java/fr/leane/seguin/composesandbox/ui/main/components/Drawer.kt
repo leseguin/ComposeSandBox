@@ -10,7 +10,9 @@ import androidx.compose.material.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import fr.leane.seguin.composesandbox.R
 import fr.leane.seguin.composesandbox.ui.main.NavigationDirections
 import fr.leane.seguin.composesandbox.ui.theme.ComposeSandBoxTheme
 
@@ -22,7 +24,7 @@ fun Drawer(
 ) {
     DefaultStyleTopBar({
         Text(
-            text = "Compose SandBox",
+            text = stringResource(id = R.string.app_name),
             style = ComposeSandBoxTheme.typography.h1,
             modifier = Modifier.padding(8.dp)
         )
@@ -30,7 +32,7 @@ fun Drawer(
 
     directions.forEach { navigationDirection ->
         DrawerItem(
-            navigationDirection.name,
+            stringResource(id = navigationDirection.resTitle),
             isSelected = selectedScreen.name == navigationDirection.name,
             onClick = { setSelectedScreen(navigationDirection) },
             modifier = Modifier
