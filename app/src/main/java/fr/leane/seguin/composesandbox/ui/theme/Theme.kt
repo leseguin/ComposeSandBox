@@ -2,10 +2,9 @@ package fr.leane.seguin.composesandbox.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Typography
-import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import fr.leane.seguin.composesandbox.ui.theme.type.SandBoxTypography
 
 private val LightColorPalette = lightColors(
     primary = primary300,
@@ -24,7 +23,7 @@ private val LightColorPalette = lightColors(
 )
 
 object ComposeSandBoxTheme {
-    val typography = Typography
+    val typography = SandBoxTypography
     val colors = LightColorPalette
 }
 
@@ -42,7 +41,7 @@ fun ComposeSandBoxTheme(
 
     MaterialTheme(
         colors = colors,
-        typography = Typography,
+        typography = SandBoxTypography,
         shapes = Shapes,
         content = content
     )
