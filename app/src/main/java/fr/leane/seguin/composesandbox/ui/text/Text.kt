@@ -1,5 +1,8 @@
 package fr.leane.seguin.composesandbox.ui.text
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +23,9 @@ import androidx.compose.ui.unit.dp
 import fr.leane.seguin.composesandbox.R
 import fr.leane.seguin.composesandbox.ui.theme.ComposeSandBoxTheme
 
+/**
+ * https://www.youtube.com/watch?v=0mfCbXrYBPE&list=PLWz5rJ2EKKc_L3n1j4ajHjJ6QccFUvW1u&index=7
+ */
 @OptIn(ExperimentalTextApi::class)
 @Composable
 fun TextScreen() {
@@ -40,8 +46,14 @@ fun TextScreen() {
                 brush = Brush.horizontalGradient(gradient)
             ),
             modifier = Modifier
-                .padding(16.dp)
-                .weight(1f),
+                //Add bouncing event
+                .animateContentSize(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioLowBouncy,
+                        stiffness = Spring.StiffnessLow
+                    )
+                )
+                .padding(16.dp),
             textAlign = TextAlign.Justify,
             overflow = TextOverflow.Ellipsis,
             maxLines = if (isTwoLine) 2 else Int.MAX_VALUE
@@ -53,7 +65,9 @@ fun TextScreen() {
                 .padding(16.dp)
                 .fillMaxWidth(),
         ) {
-            Text(text = stringResource(id = if (!isTwoLine) R.string.set_max_line_2 else R.string.set_max_line_undefined))
+            Text(
+                text = stringResource(id = if (!isTwoLine) R.string.set_max_line_2 else R.string.set_max_line_undefined)
+            )
         }
     }
 }
