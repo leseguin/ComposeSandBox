@@ -29,4 +29,5 @@ enum class NavigationDirections(val navOptions: NavOptions? = null) {
     LIST_DIRECTION,
     BUTTONS_DIRECTION,
     SLIDER_DIRECTION,
+    TEXT_DIRECTION
 }

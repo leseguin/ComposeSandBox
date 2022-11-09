@@ -1,70 +1,65 @@
 package fr.leane.seguin.composesandbox.ui.text
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Surface
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.ExperimentalTextApi
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
-import dev.jeziellago.compose.markdowntext.MarkdownText
+import fr.leane.seguin.composesandbox.R
 import fr.leane.seguin.composesandbox.ui.theme.ComposeSandBoxTheme
 
+@OptIn(ExperimentalTextApi::class)
 @Composable
-fun TextExplainer(text: String, infoContent: String, modifier: Modifier = Modifier) {
+fun TextScreen() {
+    val gradient = listOf(ComposeSandBoxTheme.colors.primary, ComposeSandBoxTheme.colors.secondary)
 
-    var isInfoSelected by remember {
+    var isTwoLine by remember {
         mutableStateOf(false)
     }
 
-    if (isInfoSelected) {
-        DialogExplainer(
-            onDismiss = { isInfoSelected = false }, text = infoContent
-        )
-    }
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+    Column(
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ) {
         Text(
-            text = text,
-            style = ComposeSandBoxTheme.typography.subtitle1,
-            color = ComposeSandBoxTheme.colors.primaryVariant,
-            modifier = modifier.padding(4.dp)
+            text = stringResource(id = R.string.lorem_ipsum),
+            style = ComposeSandBoxTheme.typography.h1.copy(
+                brush = Brush.horizontalGradient(gradient)
+            ),
+            modifier = Modifier
+                .padding(16.dp)
+                .weight(1f),
+            textAlign = TextAlign.Justify,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = if (isTwoLine) 2 else Int.MAX_VALUE
         )
 
-        IconButton(onClick = { isInfoSelected = true }) {
-            Icon(
-                imageVector = Icons.Default.Info,
-                contentDescription = null,
-                tint = ComposeSandBoxTheme.colors.primaryVariant
-            )
+        Button(
+            onClick = { isTwoLine = !isTwoLine },
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+        ) {
+            Text(text = stringResource(id = if (!isTwoLine) R.string.set_max_line_2 else R.string.set_max_line_undefined))
         }
     }
 }
 
+@Preview
 @Composable
-fun DialogExplainer(onDismiss: () -> Unit, text: String) {
-    Dialog(onDismissRequest = onDismiss) {
-        Surface() {
-            ExplainerContent(markdown = text)
-        }
-    }
-}
-
-@Composable
-private fun ExplainerContent(markdown: String, modifier: Modifier = Modifier) {
-    MarkdownText(
-        modifier = modifier.fillMaxWidth(),
-        markdown = "```kotlin  \n $markdown \n ``` "
-    )
+fun TextScreenPreview() {
+    TextScreen()
 }

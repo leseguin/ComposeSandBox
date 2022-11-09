@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import fr.leane.seguin.composesandbox.helpers.FileHelper
-import fr.leane.seguin.composesandbox.ui.text.TextExplainer
+import fr.leane.seguin.composesandbox.ui.dialog.TitleExplainer
 import fr.leane.seguin.composesandbox.ui.theme.ComposeSandBoxTheme
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -38,7 +38,7 @@ fun SliderScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        TextExplainer(text = "ComposeSandboxSlider", infoContent = FileHelper.readFile(""))
+        TitleExplainer(text = "ComposeSandboxSlider", infoContent = FileHelper.readFile(""))
         Text(text = value.toString(), style = ComposeSandBoxTheme.typography.h2)
 
         Spacer(modifier = Modifier.height(spacing))
