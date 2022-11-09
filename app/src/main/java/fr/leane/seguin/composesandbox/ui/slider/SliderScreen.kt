@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import fr.leane.seguin.composesandbox.helpers.FileHelper
 import fr.leane.seguin.composesandbox.ui.dialog.TitleExplainer
 import fr.leane.seguin.composesandbox.ui.theme.ComposeSandBoxTheme
 
@@ -24,6 +23,7 @@ import fr.leane.seguin.composesandbox.ui.theme.ComposeSandBoxTheme
 @Composable
 fun SliderScreen() {
     val range = 0f..100f
+
     val (value, setValue) = remember {
         mutableStateOf((range.start))
     }
@@ -38,20 +38,23 @@ fun SliderScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        TitleExplainer(text = "ComposeSandboxSlider", infoContent = FileHelper.readFile(""))
+        TitleExplainer(text = "ComposeSandboxSlider", infoContent = "TODO")
+
         Text(text = value.toString(), style = ComposeSandBoxTheme.typography.h2)
 
         Spacer(modifier = Modifier.height(spacing))
-        ComposeSandboxSlider(value = value, setValue = setValue, range = range)
+
+        ComposeSandboxSlider(value = { value }, setValue = setValue, range = range)
 
         Spacer(modifier = Modifier.height(spacing))
+
         ComposeSandboxSlider(
-            value = value,
+            value = { value },
             setValue = setValue,
             range = range,
             thumb = {
                 ThumbBrightness(
-                    brightnessEnd = value,
+                    brightnessEnd = { value },
                     modifier = Modifier.fillMaxSize()
                 )
             },
@@ -62,10 +65,7 @@ fun SliderScreen() {
 
         Spacer(modifier = Modifier.height(spacing))
 
-
-        Spacer(modifier = Modifier.height(spacing))
-
-        ComposeSandboxSlider(value = value, setValue = setValue, range = range, thumb = {
+        ComposeSandboxSlider(value = { value }, setValue = setValue, range = range, thumb = {
             Box(
                 modifier = Modifier
                     .border(BorderStroke(1.dp, Color.Red))
@@ -75,15 +75,12 @@ fun SliderScreen() {
 
         Spacer(modifier = Modifier.height(spacing))
 
-        ComposeSandboxSlider(value = value, setValue = setValue, range = range, thumb = {
+        ComposeSandboxSlider(value = { value }, setValue = setValue, range = range, thumb = {
 
         })
 
         Spacer(modifier = Modifier.height(spacing))
 
         Slider(value = value, onValueChange = setValue, valueRange = 0f..100f)
-
-        Spacer(modifier = Modifier.height(spacing))
     }
-
 }
