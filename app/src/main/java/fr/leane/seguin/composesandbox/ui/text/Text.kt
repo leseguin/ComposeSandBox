@@ -11,7 +11,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
@@ -24,7 +26,11 @@ import fr.leane.seguin.composesandbox.R
 import fr.leane.seguin.composesandbox.ui.theme.ComposeSandBoxTheme
 
 /**
+ * Animation in compose
  * https://www.youtube.com/watch?v=0mfCbXrYBPE&list=PLWz5rJ2EKKc_L3n1j4ajHjJ6QccFUvW1u&index=7
+ *
+ * Styling text in Compose
+ * https://www.youtube.com/watch?v=_qls2CEAbxI&list=PLWz5rJ2EKKc_L3n1j4ajHjJ6QccFUvW1u&index=8
  */
 @OptIn(ExperimentalTextApi::class)
 @Composable
@@ -40,11 +46,7 @@ fun TextScreen() {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        Text(
-            text = stringResource(id = R.string.lorem_ipsum),
-            style = ComposeSandBoxTheme.typography.h1.copy(
-                brush = Brush.horizontalGradient(gradient)
-            ),
+        Column(
             modifier = Modifier
                 //Add bouncing event
                 .animateContentSize(
@@ -54,10 +56,26 @@ fun TextScreen() {
                     )
                 )
                 .padding(16.dp),
-            textAlign = TextAlign.Justify,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = if (isTwoLine) 2 else Int.MAX_VALUE
-        )
+            horizontalAlignment = Alignment.End
+        ) {
+            Text(
+                text = stringResource(id = R.string.lorem_ipsum),
+                style = ComposeSandBoxTheme.typography.h1.copy(
+                    brush = Brush.horizontalGradient(gradient)
+                ),
+                textAlign = TextAlign.Justify,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = if (isTwoLine) 2 else Int.MAX_VALUE,
+                onTextLayout = {
+                    if (it.hasVisualOverflow) {
+                        isTwoLine = true
+                    }
+                }
+            )
+            TextButton(onClick = { isTwoLine = !isTwoLine }) {
+                Text(text = stringResource(id = if (isTwoLine) R.string.show else R.string.hide))
+            }
+        }
 
         Button(
             onClick = { isTwoLine = !isTwoLine },
