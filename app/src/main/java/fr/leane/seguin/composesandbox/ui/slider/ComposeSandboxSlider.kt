@@ -28,9 +28,15 @@ import fr.leane.seguin.composesandbox.ui.theme.ComposeSandBoxTheme
 import fr.leane.seguin.composesandbox.ui.theme.primary300
 
 
+/**
+ * Lorsque la valeur (ici value) est amené à changer souvent il vaut mieux utilisé une lambda pour récuperer la valeur
+ * Car celle ci n'est pas recomposé à chaque fois.
+ * https://www.youtube.com/watch?v=ahXLwg2JYpc&list=PLWz5rJ2EKKc_L3n1j4ajHjJ6QccFUvW1u&index=6
+ */
+
 @Composable
 fun ComposeSandboxSlider(
-    value: Float,
+    value: () -> Float,
     setValue: (Float) -> Unit,
     range: ClosedFloatingPointRange<Float>,
     modifier: Modifier = Modifier,
@@ -54,6 +60,7 @@ fun ComposeSandboxSlider(
         contentAlignment = Alignment.Center
     ) {
         val constraints = this
+
         val pixelStart = localDensity.run {
             constraints.minWidth.toPx()
         }
@@ -62,7 +69,7 @@ fun ComposeSandboxSlider(
         }
 
         LaunchedEffect(pixelStart, pixelEnd, value) {
-            offsetX = (value * pixelEnd) / range.endInclusive
+            offsetX = (value() * pixelEnd) / range.endInclusive
         }
 
         SliderBar(
@@ -97,8 +104,6 @@ fun ComposeSandboxSlider(
             range = range,
             setValue = setValue
         )
-
-
     }
 }
 
@@ -205,15 +210,14 @@ private fun Thumb(color: Color, modifier: Modifier = Modifier) {
 
 @Composable
 fun ThumbBrightness(
-    brightnessEnd: Float,
+    brightnessEnd: () -> Float,
     modifier: Modifier = Modifier,
     centerSize: Dp = 16.dp
 ) {
-
     val gradient = remember(brightnessEnd) {
-        val bright = if (brightnessEnd <= 0) {
+        val bright = if (brightnessEnd() <= 0) {
             1f
-        } else brightnessEnd
+        } else brightnessEnd()
         Brush.radialGradient(
             colors = listOf(Color.White, Color.Transparent),
             center = Offset.Unspecified,
@@ -223,9 +227,9 @@ fun ThumbBrightness(
     }
 
     val gradientBlue = remember(brightnessEnd) {
-        val bright = if (brightnessEnd <= 0) {
+        val bright = if (brightnessEnd() <= 0) {
             1f
-        } else brightnessEnd
+        } else brightnessEnd()
         Brush.radialGradient(
             colors = listOf(primary300.copy(alpha = 0.1f), Color.Transparent),
             center = Offset.Unspecified,
@@ -263,17 +267,16 @@ fun ComposeSandboxSliderPreview() {
     Column(Modifier.background(ComposeSandBoxTheme.colors.secondary)) {
         Text(text = value.toString())
         ComposeSandboxSlider(
-            value = value,
+            value = { value },
             setValue = setValue,
             range = range,
             modifier = Modifier
                 .padding(54.dp),
             thumb = {
-                ThumbBrightness(brightnessEnd = value, modifier = Modifier.fillMaxSize())
+                ThumbBrightness(brightnessEnd = { value }, modifier = Modifier.fillMaxSize())
             },
             barThickness = 8.dp,
             thumbSize = 54.dp,
         )
     }
-
 }
