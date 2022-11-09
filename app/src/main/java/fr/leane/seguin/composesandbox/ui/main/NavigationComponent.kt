@@ -8,6 +8,7 @@ import fr.leane.seguin.composesandbox.data.SandBoxItem
 import fr.leane.seguin.composesandbox.ui.button.ButtonsScreen
 import fr.leane.seguin.composesandbox.ui.list.SimpleColumnScreen
 import fr.leane.seguin.composesandbox.ui.slider.SliderScreen
+import fr.leane.seguin.composesandbox.ui.text.TextScreen
 
 @Composable
 fun NavigationComponent(
@@ -30,6 +31,9 @@ fun NavigationComponent(
 
         composable(NavigationDirections.SLIDER_DIRECTION.name) {
             SliderScreen()
+        }
+        composable(NavigationDirections.TEXT_DIRECTION.name) {
+            TextScreen()
         }
     }
 }
