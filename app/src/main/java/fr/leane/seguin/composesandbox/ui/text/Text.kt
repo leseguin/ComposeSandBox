@@ -67,9 +67,7 @@ fun TextScreen() {
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (isTwoLine) 2 else Int.MAX_VALUE,
                 onTextLayout = {
-                    if (it.hasVisualOverflow) {
-                        isTwoLine = true
-                    }
+                    isTwoLine = it.hasVisualOverflow
                 }
             )
             TextButton(onClick = { isTwoLine = !isTwoLine }) {

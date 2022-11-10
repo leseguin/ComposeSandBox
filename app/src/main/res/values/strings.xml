@@ -6,6 +6,7 @@
     <string name="title_CIRCULAR_BUTTON_DIRECTION">Circular button</string>
     <string name="title_SLIDER_DIRECTION">Sliders</string>
     <string name="title_TEXT_DIRECTION">Text</string>
+    <string name="title_ACCORDION_DIRECTION">Accordion menu</string>
 
 
     <!-- SECTION: TextScreen -->
