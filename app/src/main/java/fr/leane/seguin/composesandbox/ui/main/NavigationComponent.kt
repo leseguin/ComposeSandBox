@@ -8,6 +8,7 @@ import fr.leane.seguin.composesandbox.data.SandBoxItem
 import fr.leane.seguin.composesandbox.ui.button.ButtonsScreen
 import fr.leane.seguin.composesandbox.ui.collapse.CollapseScreen
 import fr.leane.seguin.composesandbox.ui.list.SimpleColumnScreen
+import fr.leane.seguin.composesandbox.ui.movie.MoviesScreen
 import fr.leane.seguin.composesandbox.ui.slider.SliderScreen
 import fr.leane.seguin.composesandbox.ui.text.TextScreen
 
@@ -24,12 +25,11 @@ fun NavigationComponent(
         composable(NavigationDirections.LIST_DIRECTION.name) {
             val items = (0..20).map { i -> SandBoxItem.createSandBoxItem("Header $i") }
             SimpleColumnScreen(items)
-        }
 
+        }
         composable(NavigationDirections.CIRCULAR_BUTTON_DIRECTION.name) {
             ButtonsScreen()
         }
-
         composable(NavigationDirections.SLIDER_DIRECTION.name) {
             SliderScreen()
         }
@@ -38,6 +38,9 @@ fun NavigationComponent(
         }
         composable(NavigationDirections.ACCORDION_DIRECTION.name) {
             CollapseScreen()
+        }
+        composable(NavigationDirections.MOVIES_DIRECTION.name) {
+            MoviesScreen()
         }
     }
 }

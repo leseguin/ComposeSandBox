@@ -35,5 +35,6 @@ enum class NavigationDirections(@StringRes val resTitle: Int, val navOptions: Na
     CIRCULAR_BUTTON_DIRECTION(R.string.title_CIRCULAR_BUTTON_DIRECTION),
     SLIDER_DIRECTION(R.string.title_SLIDER_DIRECTION),
     TEXT_DIRECTION(R.string.title_TEXT_DIRECTION),
-    ACCORDION_DIRECTION(R.string.title_ACCORDION_DIRECTION)
+    ACCORDION_DIRECTION(R.string.title_ACCORDION_DIRECTION),
+    MOVIES_DIRECTION(R.string.title_MOVIES_DIRECTION)
 }
